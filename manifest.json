@@ -1,0 +1,7 @@
+{
+  "name": "Virus Checker",
+  "description": "Checks sent attachments for any viruses in them. Checking provided by virustotal.com.",
+  "author": "lav#5778",
+  "version": "1.0.0",
+  "license": "MIT"
+}
