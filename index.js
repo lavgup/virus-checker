@@ -1,15 +1,21 @@
+const i18n = require('./i18n');
 const { shell } = require('electron');
 const { get, post } = require('powercord/http');
 const { Plugin } = require('powercord/entities');
-const { getModule, React } = require('powercord/webpack');
 const { inject, uninject } = require('powercord/injector');
 const { PersonShield } = require('powercord/components/Icons');
+const {
+    getModule,
+    React,
+    i18n: { Messages }
+} = require('powercord/webpack');
 
 const Settings = require('./components/Settings');
 
 class VirusChecker extends Plugin {
     async startPlugin() {
         this.loadStylesheet('styles.css');
+        powercord.api.i18n.loadAllStrings(i18n);
         this.registerSettings();
 
         const Attachment = await getModule(['AttachmentUpload']);
@@ -30,8 +36,8 @@ class VirusChecker extends Plugin {
                         if (!key) {
                             return this.toast({
                                 id: 'VirusNoKey',
-                                header: 'Error occurred',
-                                content: "You didn't provide an API key! Get this by following the instructions on the GitHub repo."
+                                header: Messages.VC_ERROR,
+                                content: Messages.NO_KEY
                             });
                         }
 
@@ -42,8 +48,8 @@ class VirusChecker extends Plugin {
                         try {
                             this.toast({
                                 id: 'VirusLoading',
-                                header: 'Loading...',
-                                content: "Rome wasn't built in a day...",
+                                header: Messages.VC_LOADING,
+                                content: Messages.VC_LOADING_DESC,
                                 color: 'green'
                             });
 
@@ -58,8 +64,8 @@ class VirusChecker extends Plugin {
                         } catch (err) {
                             return this.toast({
                                 id: 'VirusFetchError',
-                                header: 'Error occurred',
-                                content: `${err.message}. Make sure you provided a valid API key!`
+                                header: Messages.VC_ERROR,
+                                content: `${err.message}. ${Messages.VC_MAKE_SURE}`
                             });
                         } finally {
                             powercord.api.notices.closeToast('VirusLoading');
@@ -76,7 +82,7 @@ class VirusChecker extends Plugin {
     registerSettings() {
         powercord.api.settings.registerSettings('virus-checker-settings', {
             category: this.entityID,
-            label: 'Virus Checker',
+            label: Messages.VIRUS_CHECKER,
             render: Settings,
         });
     }
@@ -88,7 +94,7 @@ class VirusChecker extends Plugin {
             type: 'info',
             timeout: 10e3,
             buttons: [{
-                text: 'Got It',
+                text: Messages.GOT_IT,
                 color,
                 size: 'medium',
                 look: 'outlined',
@@ -102,8 +108,8 @@ class VirusChecker extends Plugin {
         } catch (err) {
             return this.toast({
                 id: 'VirusBrowserError',
-                header: 'Error occurred',
-                content: `Failed to open browser: ${err.message}.`
+                header: Messages.VC_ERROR,
+                content: `${Messages.FAILED_BROWSER} ${err.message}.`
             });
         }
     }

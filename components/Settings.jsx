@@ -1,15 +1,15 @@
-const { React } = require('powercord/webpack');
 const { TextInput } = require('powercord/components/settings');
+const { React, i18n: { Messages } } = require('powercord/webpack');
 
 module.exports = ({ getSetting, updateSetting }) => (
     <div>
         <TextInput
-            note="Your API key. Don't share this with anyone else."
+            note={Messages.YOUR_KEY}
             defaultValue={getSetting('apiKey', '')}
             required={true}
             onChange={val => updateSetting('apiKey', val)}
         >
-            API Key
+            {Messages.API_KEY}
         </TextInput>
     </div>
 );

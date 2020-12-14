@@ -1,0 +1,12 @@
+{
+  "VIRUS_CHECKER": "Virus Checker",
+  "VC_LOADING": "Loading...",
+  "VC_LOADING_DESC": "Rome wasn't built in a day...",
+  "VC_ERROR": "Error occurred",
+  "VC_NO_KEY": "You didn't provide an API key! Get this by following the instructions on the GitHub repo.",
+  "VC_MAKE_SURE": "Make sure you provided a valid key!",
+  "VC_FAILED_BROWSER": "Failed to open browser:",
+  "GOT_IT": "Got it",
+  "YOUR_KEY": "Your VirusTotal API key. Don't share this with anyone else.",
+  "API_KEY": "API Key"
+}
